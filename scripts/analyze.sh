@@ -9,7 +9,7 @@
 # ------------------------------------------------------------------------------
 
 #set -euxo pipefail 
-set -uxo pipefail 
+set -eux
 
 home=/e/07/orchdhlth/Sequencing_Analysis_Tools/ginkgo
 dir=${home}/uploads/${1}
