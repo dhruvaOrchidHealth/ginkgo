@@ -8,7 +8,10 @@
 # -- Variables
 # ------------------------------------------------------------------------------
 
-home=/local1/work/ginkgo
+#set -euxo pipefail 
+set -uxo pipefail 
+
+home=/e/07/orchdhlth/Sequencing_Analysis_Tools/ginkgo
 dir=${home}/uploads/${1}
 source ${dir}/config
 distMet=$distMeth
@@ -62,8 +65,8 @@ then
     # Unzip gzip files if necessary
     if [[ "${file}" =~ \.gz$ ]];
     then
-      firstLineChr=$(zcat ${dir}/${file} | head -n 1 | cut -f1 | grep "chr")
-      if [[ "${firstLineChr}" == "" ]];
+      firstLineChr=$(zcat ${dir}/${file} | head -n 1 | cut -f1 )
+      if  [[ ! "${firstLineChr}" =~ ^chr ]];
       then
         awk '{print "chr"$0}' <(zcat ${dir}/${file}) > ${dir}/${file}_tmp
         mv ${dir}/${file}_tmp ${dir}/${file/.gz/}
@@ -73,8 +76,8 @@ then
 
     # 
     else
-      firstLineChr=$( head -n 1 ${dir}/${file} | cut -f1 | grep "chr")
-      if [[ "${firstLineChr}" == "" ]];
+      firstLineChr=$( head -n 1 ${dir}/${file} | cut -f1 )
+      if [[ ! "${firstLineChr}" =~ ^chr ]];
       then
         awk '{print "chr"$0}' ${dir}/${file} > ${dir}/${file}_tmp
         mv ${dir}/${file}_tmp ${dir}/${file}

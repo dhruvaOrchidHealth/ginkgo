@@ -5,7 +5,7 @@
 // =============================================================================
 
 // Directories
-define('DIR_ROOT', '/local1/work/ginkgo');
+define('DIR_ROOT', '/e/07/orchdhlth/Sequencing_Analysis_Tools/ginkgo');
 define('DIR_UPLOADS', DIR_ROOT . '/uploads');
 
 // URLs
