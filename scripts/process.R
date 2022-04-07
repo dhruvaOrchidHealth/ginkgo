@@ -284,9 +284,14 @@ for(k in 1:w)
     par(xpd=FALSE)
     save(tu, temp, reads, file='debug.rdata')
     #cat('Clip args:', tu[1], mean(temp)-mean(diff(reads$mids)/2), tu[3], tu[4],'...\n')
-    clip(tu[1], mean(temp)-mean(diff(reads$mids)/2), tu[3], tu[4])
+    cur_clip_x=mean(temp)-mean(diff(reads$mids)/2)
+    if(is.nan(cur_clip_x)){
+      cur_clip_x=mean(temp)
+    }
+    
+    clip(tu[1], cur_clip_x, tu[3], tu[4])
     plot(reads, col='gray50', add=TRUE)
-    clip(mean(temp)+mean(diff(reads$mids)/2), tu[2], tu[3], tu[4])
+    clip(cur_clip_x, tu[2], tu[3], tu[4])
     plot(reads, col='gray50', add=TRUE)
     clip(tu[1], mean(temp) - sd(temp), tu[3], tu[4])
     plot(reads, col='gray75', add=TRUE)
