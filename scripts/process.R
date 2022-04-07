@@ -282,7 +282,7 @@ for(k in 1:w)
     # axis(side=1, at=seq(min(temp), round(diff(range(temp))/20)*22, round(diff(range(temp))/20)), cex.axis=2)
     tu = par('usr')
     par(xpd=FALSE)
-    save(tu, temp, reads, file='debug.rdata')
+    #save(tu, temp, reads, file='debug.rdata')
     #cat('Clip args:', tu[1], mean(temp)-mean(diff(reads$mids)/2), tu[3], tu[4],'...\n')
     cur_clip_x=mean(temp)-mean(diff(reads$mids)/2)
     if(is.nan(cur_clip_x)){
@@ -306,7 +306,7 @@ for(k in 1:w)
 
   #Plot lorenz curves
   jpeg(filename=paste(lab[k], "_lorenz.jpeg", sep=""), width=2500, height=1500, type='cairo')
-
+  #save(raw ,k,  file='debug.rdata')
   nReads=sum(raw[,k])
   uniq=unique(sort(raw[,k]))
   
