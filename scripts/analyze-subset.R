@@ -66,7 +66,7 @@ col2[,2] = col1[,1]
 # ------------------------------------------------------------------------------
 if(analysisType == "lorenz")
 {
-	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=700, height=500)
+	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=700, height=500, type='cairo')
 
 	#
 	legendNames = c("Perfect Uniformity")
@@ -128,7 +128,7 @@ if(analysisType == "lorenz")
 # ------------------------------------------------------------------------------
 if(analysisType == "gc")
 {
-	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=700, height=500)
+	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=700, height=500, type='cairo')
 
 	#
 	legendNames = c()
@@ -176,7 +176,7 @@ if(analysisType == "cnvprofiles")
 	library(scales)   # for alpha() opacity used in points() function
 
 	nbCells = length(cellIDs)
-	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=1000, height=200*nbCells)
+	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=1000, height=200*nbCells, type='cairo')
 	# layout(matrix(c(nbCells,1), nbCells, 1, byrow=TRUE))
 	par(mfrow=c(nbCells,1)) 
 
@@ -250,7 +250,7 @@ if(analysisType == "mad")
 		a[i, 4] = mad(normal[-(1:4), cell] - normal[1:(l-4), cell])
 	}
 
-	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=500, height=500)
+	jpeg(filename=paste(analysisID, ".jpeg", sep=""), width=500, height=500, type='cairo')
 
 	# Plot
 	temp=cbind(a, array("", dim(a)[1]))

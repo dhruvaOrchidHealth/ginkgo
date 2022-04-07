@@ -240,7 +240,7 @@ for(k in 1:w)
   # ----------------------------------------------------------------------------
 
   # Plot Distribution of Read Coverage
-  jpeg(filename=paste(lab[k], "_dist.jpeg", sep=""), width=3000, height=750)
+  jpeg(filename=paste(lab[k], "_dist.jpeg", sep=""), width=3000, height=750, type='cairo')
   
   top=round(quantile(raw[,k], c(.995))[[1]])
   rectangles1=data.frame(pos[seq(1,nrow(pos), 2),])
@@ -272,7 +272,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot histogram of bin counts
-  jpeg(filename=paste(lab[k], "_counts.jpeg", sep=""), width=2500, height=1500)
+  jpeg(filename=paste(lab[k], "_counts.jpeg", sep=""), width=2500, height=1500, type='cairo')
     par(mar = c(7.0, 7.0, 7.0, 3.0))
 
     temp=sort(raw[,k])[round(l*.01) : (l-round(l*.01))] 
@@ -298,7 +298,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot lorenz curves
-  jpeg(filename=paste(lab[k], "_lorenz.jpeg", sep=""), width=2500, height=1500)
+  jpeg(filename=paste(lab[k], "_lorenz.jpeg", sep=""), width=2500, height=1500, type='cairo')
 
   nReads=sum(raw[,k])
   uniq=unique(sort(raw[,k]))
@@ -342,7 +342,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot GC correction
-  jpeg(filename=paste(lab[k], "_GC.jpeg", sep=""), width=2500, height=1250)
+  jpeg(filename=paste(lab[k], "_GC.jpeg", sep=""), width=2500, height=1250, type='cairo')
 
   low = lowess(GC[,1], log(normal2[,k]), f=0.05)
   app = approx(low$x, low$y, GC[,1])
@@ -381,7 +381,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot Scaled/Normalized Bin Count Histogram
-  jpeg(filename=paste(lab[k], "_hist.jpeg", sep=""), width=2500, height=1500)
+  jpeg(filename=paste(lab[k], "_hist.jpeg", sep=""), width=2500, height=1500, type='cairo')
 
   clouds=data.frame(x=normal[,k]*CN)
 
@@ -400,7 +400,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot sum of squares error for each potential copy number
-  jpeg(filename=paste(lab[k], "_SoS.jpeg", sep=""), width=2500, height=1500)
+  jpeg(filename=paste(lab[k], "_SoS.jpeg", sep=""), width=2500, height=1500, type='cairo')
 
   top = max(outerColsums[,k])
   sosDat = data.frame(x=CNgrid, y=outerColsums[,k])
@@ -437,7 +437,7 @@ for(k in 1:w)
   dev.off()
 
   #Plot colored CN profile
-  jpeg(filename=paste(lab[k], "_CN.jpeg", sep=""), width=3000, height=750)
+  jpeg(filename=paste(lab[k], "_CN.jpeg", sep=""), width=3000, height=750, type='cairo')
 
   top=8
   rectangles1=data.frame(pos[seq(1,nrow(pos), 2),])
@@ -555,7 +555,7 @@ system(command);
 ###
 
 #Plot read cluster
-jpeg("clust.jpeg", width=2000, height=1400)
+jpeg("clust.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust, xlab="Sample", hang=-1, ylab=paste("Distance (", dm, ")", sep=""), lwd=2)
 dev.off()
@@ -593,7 +593,7 @@ system(command);
 ###
 
 #Plot copy number cluster
-jpeg("clust2.jpeg", width=2000, height=1400)
+jpeg("clust2.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust2, xlab="Sample", hang=-1, ylab=paste("Distance (", dm, ")", sep=""), lwd=2)
 dev.off()
@@ -627,7 +627,7 @@ system(command);
 ### 
 
 #Plot correlation cluster
-jpeg("clust3.jpeg", width=2000, height=1400)
+jpeg("clust3.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust3, xlab="Sample", hang=-1, ylab="Distance (Pearson correlation)", lwd=2)
 dev.off()
@@ -678,24 +678,24 @@ if(cm == "NJ"){
 }
 
 write("Making heatRaw.jpeg", stderr())
-jpeg("heatRaw.jpeg", width=2000, height=1400)
+jpeg("heatRaw.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(rawBPs), Colv=FALSE, Rowv=as.dendrogram(clust), margins=c(5,20), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=bluered(2))
 dev.off()
 
 write("Making heatNorm.jpeg", stderr())
 step=quantile(fixedBPs, c(.98))[[1]]
-jpeg("heatNorm.jpeg", width=2000, height=1400)
+jpeg("heatNorm.jpeg", width=2000, height=1400,type='cairo')
 heatmap.2(t(fixedBPs), Colv=FALSE, Rowv=as.dendrogram(clust), margins=c(5,20), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=bluered(15), breaks=seq(0,step,step/15))
 dev.off()
 
 write("Making heatCN.jpeg", stderr())
 step=min(20, quantile(finalBPs, c(.98))[[1]])
-jpeg("heatCN.jpeg", width=2000, height=1400)
+jpeg("heatCN.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(finalBPs), Colv=FALSE, Rowv=as.dendrogram(clust2), margins=c(5,20), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=colorRampPalette(c("white","green","green4","violet","purple"))(15), breaks=seq(0,step,step/15))
 dev.off()
 
 write("Making heatCor.jpeg", stderr())
-jpeg("heatCor.jpeg", width=2000, height=1400)
+jpeg("heatCor.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(finalBPs), Colv=FALSE, Rowv=as.dendrogram(clust3), margins=c(5,20), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=colorRampPalette(c("white","steelblue1","steelblue4","orange","sienna3"))(15), breaks=seq(0,step,step/15))
 dev.off()
 

@@ -78,7 +78,7 @@ system(command);
 ##
 
 #Plot read cluster
-jpeg("clust.jpeg", width=2000, height=1400)
+jpeg("clust.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust, xlab="Sample", hang=-1, ylab=paste("Distance (", dm, ")", sep=""), lwd=2)
 dev.off()
@@ -125,7 +125,7 @@ system(command);
 ## 
 
 #Plot copy number cluster
-jpeg("clust2.jpeg", width=2000, height=1400)
+jpeg("clust2.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust2, xlab="Sample", hang=-1, ylab=paste("Distance (", dm, ")", sep=""), lwd=2)
 dev.off()
@@ -153,7 +153,7 @@ system(command);
 ## 
 
 #Plot correlation cluster
-jpeg("clust3.jpeg", width=2000, height=1400)
+jpeg("clust3.jpeg", width=2000, height=1400, type='cairo')
   op = par(bg = "gray85")
   plot(clust3, xlab="Sample", hang=-1, ylab=paste("Distance (", dm, ")", sep=""), lwd=2)
 dev.off()
@@ -184,7 +184,7 @@ statusFile<-file( paste(user_dir, "/", status, sep="") )
 writeLines(c("<?xml version='1.0'?>", "<status>", "<step>4</step>", "<processingfile>Recreating Heat Maps</processingfile>", "<percentdone>96</percentdone>", "<tree>clust.xml</tree>", "</status>"), statusFile)
 close(statusFile)
 
-jpeg("heatRaw.jpeg", width=2000, height=1400)
+jpeg("heatRaw.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(rawBPs), Colv=FALSE, Rowv=as.dendrogram(clust), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=bluered(2))
 dev.off()
 
@@ -193,7 +193,7 @@ writeLines(c("<?xml version='1.0'?>", "<status>", "<step>4</step>", "<processing
 close(statusFile)
 
 step=quantile(fixedBPs, c(.98))[[1]]
-jpeg("heatNorm.jpeg", width=2000, height=1400)
+jpeg("heatNorm.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(fixedBPs), Colv=FALSE, Rowv=as.dendrogram(clust), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=bluered(15), breaks=seq(0,step,step/15))
 dev.off()
 
@@ -202,7 +202,7 @@ writeLines(c("<?xml version='1.0'?>", "<status>", "<step>4</step>", "<processing
 close(statusFile)
 
 step=min(20, quantile(finalBPs, c(.98))[[1]])
-jpeg("heatCN.jpeg", width=2000, height=1400)
+jpeg("heatCN.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(finalBPs), Colv=FALSE, Rowv=as.dendrogram(clust2), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=colorRampPalette(c("white","green","green4","violet","purple"))(15), breaks=seq(0,step,step/15))
 dev.off()
 
@@ -210,7 +210,7 @@ statusFile<-file( paste(user_dir, "/", status, sep="") )
 writeLines(c("<?xml version='1.0'?>", "<status>", "<step>4</step>", "<processingfile>Recreating Heat Maps</processingfile>", "<percentdone>99</percentdone>", "<tree>clust.xml</tree>", "</status>"), statusFile)
 close(statusFile)
 
-jpeg("heatCor.jpeg", width=2000, height=1400)
+jpeg("heatCor.jpeg", width=2000, height=1400, type='cairo')
 heatmap.2(t(finalBPs), Colv=FALSE, Rowv=as.dendrogram(clust3), dendrogram="row", trace="none", xlab="Bins", ylab="Samples", cex.main=2, cex.axis=1.5, cex.lab=1.5, cexCol=.001, col=colorRampPalette(c("white","steelblue1","steelblue4","orange","sienna3"))(15), breaks=seq(0,step,step/15))
 dev.off()
 
